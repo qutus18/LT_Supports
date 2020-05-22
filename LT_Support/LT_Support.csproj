@@ -38,6 +38,7 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Communication\TCP4Client.cs" />
+    <Compile Include="Database\PersonModel.cs" />
+    <Compile Include="Database\SQLiteDataAccess.cs" />
     <Compile Include="Logging\LoggingSample.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -58,5 +61,6 @@
     <None Include="packages.config" />
     <None Include="Snippets\CommentWithLineSeperate.snippet" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
