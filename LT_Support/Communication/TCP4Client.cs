@@ -20,7 +20,7 @@ namespace LT_Support
         public TCP4ReceivedEventHandle ReceivedStringFromServerEvent;
 
         //------------------------------------------------------------
-        // Event gửi dữ liệu khi nhận được qua TCP
+        // Event mất kết nối TCP
         //------------------------------------------------------------
         public delegate void TCP4DisconnectEventHandle();
         public TCP4DisconnectEventHandle ServerDisconnectEvent;
@@ -64,7 +64,6 @@ namespace LT_Support
                 ContinuesReceiveThread.IsBackground = true;
                 ContinuesReceiveThread.Start();
             }
-
         }
 
         //------------------------------------------------------------
