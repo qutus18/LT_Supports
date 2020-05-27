@@ -7,7 +7,7 @@ namespace LT_Support
     {
         public static List<PersonModel> LoadPeople()
         {
-
+            return null;
         }
         public static void SavePerson(PersonModel person)
         {
