@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using log4net;
 
 namespace TEST
 {
@@ -58,7 +59,7 @@ namespace TEST
                 {
                     outAscii += (char)item;
                 }
-                txtConvertString.Text = outAscii;
+                txtConvertString.Text = "Hello World. I'm Latus";
                 //------------------------------------------------------------
                 // Hiển thị Bit Array
                 //------------------------------------------------------------
@@ -87,6 +88,33 @@ namespace TEST
                     }
                 }
                 txtConvertBit.Text = outBitString;
+                //------------------------------------------------------------
+                // Hiển thị Int[] từ String
+                //------------------------------------------------------------
+                int[] convertedIntArr = LT_Support.PLC3e.StringToWordArr(txtConvertString.Text);
+                string strInt = "";
+                foreach (int item in convertedIntArr)
+                {
+                    if (strInt != "")
+                    {
+                        strInt += "-" + item.ToString();
+                    }
+                    else
+                    {
+                        strInt += item.ToString();
+                    }
+                }
+                txtConvertBit.Text = strInt;
+                //------------------------------------------------------------
+                // Hiển thị DWord
+                //------------------------------------------------------------
+                int dWord = LT_Support.PLC3e.GetDWordFromWordArr(convertedIntArr, 3);
+                txtDWord.Text = dWord.ToString();
+                //------------------------------------------------------------
+                // Hiển thị SubString
+                //------------------------------------------------------------
+                string subString = LT_Support.PLC3e.GetStringFromWordArr(convertedIntArr, 3, 4);
+                txtSubStringConvert.Text = subString;
             }
             catch
             {
@@ -97,6 +125,34 @@ namespace TEST
                 txtConvertString.Text = "";
                 txtConvertBit.Text = "";
             }
+        }
+
+        private void btnCreatePLC3e_Click(object sender, EventArgs e)
+        {
+            LT_Support.PLC3eClient PLCConnection = new LT_Support.PLC3eClient("192.168.125.100", 4568, "D1000", 5, "D2000", 10);
+            //LT_Support.PLC3eClient PLCConnection = new LT_Support.PLC3eClient("127.0.0.1", 12345, "D1000", 5, "D2000", 10);
+            PLCConnection.SendDataArr[0] = 12345;
+            PLCConnection.SendDataArr[1] = -12345;
+            PLCConnection.SendDataArr[2] = -6789;
+            PLCConnection.ReceivedCommandFromServerEvent += CountCommand;
+        }
+
+        int countXTCmd, countHECmd;
+        private static readonly log4net.ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        private void CountCommand(string commandString)
+        {
+            switch (commandString){
+                case ("XT"):
+                    countXTCmd += 1;
+                    break;
+                case ("HE"):
+                    countHECmd += 1;
+                    break;
+                default:
+                    break;
+            }
+            log.Info($"Number command count:\r\n XT: {countXTCmd} --- HE: {countHECmd}");
         }
     }
 }

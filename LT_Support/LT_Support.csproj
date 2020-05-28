@@ -50,8 +50,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Communication\MCProtocol3EFrame.cs" />
-    <Compile Include="Communication\MCProtocol3EFrameSupports.cs" />
+    <Compile Include="AlignRTC\Object\VisionMatrixObject.cs" />
+    <Compile Include="AlignRTC\Tool\CalibrationNPointTool.cs" />
+    <Compile Include="AlignRTC\Object\AlignPointObject.cs" />
+    <Compile Include="AlignRTC\AlignSupports.cs" />
+    <Compile Include="AlignRTC\AlignVisionRB.cs" />
+    <Compile Include="AlignRTC\Object\CalibInfoObject.cs" />
+    <Compile Include="AlignRTC\HandeyeCalib.cs" />
+    <Compile Include="AlignRTC\Tool\PatternAlignTool.cs" />
+    <Compile Include="Communication\PLC3eClient.cs" />
+    <Compile Include="Communication\PLC3eSupports.cs" />
     <Compile Include="Communication\TCP4Client.cs" />
     <Compile Include="Database\PersonModel.cs" />
     <Compile Include="Database\SQLiteDataAccess.cs" />
@@ -59,6 +67,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Communication\PLCCommandSettings.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -42,6 +42,11 @@
             this.txtConvertString = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtConvertBit = new System.Windows.Forms.TextBox();
+            this.btnCreatePLC3e = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtDWord = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtSubStringConvert = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -121,9 +126,9 @@
             // btnConvert
             // 
             this.btnConvert.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConvert.Location = new System.Drawing.Point(59, 363);
+            this.btnConvert.Location = new System.Drawing.Point(12, 480);
             this.btnConvert.Name = "btnConvert";
-            this.btnConvert.Size = new System.Drawing.Size(99, 28);
+            this.btnConvert.Size = new System.Drawing.Size(209, 28);
             this.btnConvert.TabIndex = 5;
             this.btnConvert.Text = "Convert";
             this.btnConvert.UseVisualStyleBackColor = true;
@@ -150,9 +155,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(14, 254);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(38, 13);
+            this.label7.Size = new System.Drawing.Size(70, 13);
             this.label7.TabIndex = 1;
-            this.label7.Text = "To Bit:";
+            this.label7.Text = "String to Int[]:";
             // 
             // txtConvertBit
             // 
@@ -161,18 +166,66 @@
             this.txtConvertBit.Size = new System.Drawing.Size(192, 20);
             this.txtConvertBit.TabIndex = 4;
             // 
+            // btnCreatePLC3e
+            // 
+            this.btnCreatePLC3e.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCreatePLC3e.Location = new System.Drawing.Point(12, 514);
+            this.btnCreatePLC3e.Name = "btnCreatePLC3e";
+            this.btnCreatePLC3e.Size = new System.Drawing.Size(209, 28);
+            this.btnCreatePLC3e.TabIndex = 5;
+            this.btnCreatePLC3e.Text = "CreatePLCConnect";
+            this.btnCreatePLC3e.UseVisualStyleBackColor = true;
+            this.btnCreatePLC3e.Click += new System.EventHandler(this.btnCreatePLC3e_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(14, 293);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(97, 13);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "DWord in WordArr:";
+            // 
+            // txtDWord
+            // 
+            this.txtDWord.Location = new System.Drawing.Point(17, 309);
+            this.txtDWord.Name = "txtDWord";
+            this.txtDWord.Size = new System.Drawing.Size(192, 20);
+            this.txtDWord.TabIndex = 4;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(14, 332);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(100, 13);
+            this.label9.TabIndex = 1;
+            this.label9.Text = "Sub String from 3-7:";
+            // 
+            // txtSubStringConvert
+            // 
+            this.txtSubStringConvert.Location = new System.Drawing.Point(17, 348);
+            this.txtSubStringConvert.Name = "txtSubStringConvert";
+            this.txtSubStringConvert.Size = new System.Drawing.Size(192, 20);
+            this.txtSubStringConvert.TabIndex = 4;
+            // 
             // NumberConvertTEST
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(228, 431);
+            this.ClientSize = new System.Drawing.Size(228, 554);
+            this.Controls.Add(this.btnCreatePLC3e);
             this.Controls.Add(this.btnConvert);
+            this.Controls.Add(this.txtSubStringConvert);
+            this.Controls.Add(this.txtDWord);
             this.Controls.Add(this.txtConvertBit);
             this.Controls.Add(this.txtConvertString);
             this.Controls.Add(this.txtConvertInt32);
             this.Controls.Add(this.txtConvertByte);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.txtConvertInt16);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.txtNumberInput);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -204,5 +257,10 @@
         private System.Windows.Forms.TextBox txtConvertString;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtConvertBit;
+        private System.Windows.Forms.Button btnCreatePLC3e;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtDWord;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox txtSubStringConvert;
     }
 }

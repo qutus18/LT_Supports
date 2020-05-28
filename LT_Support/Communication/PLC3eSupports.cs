@@ -101,71 +101,6 @@ namespace LT_Support
         }
 
         /// <summary>
-        /// Lấy giá trị bit theo số thứ tự bit nhập vào
-        /// </summary>
-        /// <param name="Dx"></param>
-        /// <param name="bitNum"></param>
-        /// <returns></returns>
-        public static Boolean Get_Bit(int Dx, int bitNum)
-        {
-            int DxTemp = Dx;
-            DxTemp = (DxTemp & (int)(Math.Pow(2, bitNum)));
-            if (DxTemp == 0) return false;
-            return true;
-        }
-
-        /// <summary>
-        /// Tính toán chuỗi gửi Dx sang PLC
-        /// </summary>
-        /// <param name="Dx_Num"></param>
-        /// <param name="Dx_Data"></param>
-        /// <returns></returns>
-        public static byte[] Cal_WriteToPLCMessage_Dx_Single_1E_Frame(int Dx_Num, int Dx_Data)
-        {
-            // Chuỗi bắt đầu
-            byte[] _header = { 0x03, 0xFF, 0x0A, 0x00 };
-            // Chuỗi kết thúc
-            byte[] _terminal = { 0x20, 0x44, 0x01, 0x00 };
-            // Chuỗi tên biến
-            byte[] _DxArr = Int2ByteArray(Dx_Num);
-            // Chuỗi giá trị biến
-            byte[] _DxDataArr = new byte[2];
-            Array.Copy(Int2ByteArray(Dx_Data), 0, _DxDataArr, 0, 2);
-            // Trả về
-            List<byte> outList = _header.ToList();
-            outList.AddRange(_DxArr.ToList());
-            outList.AddRange(_terminal.ToList());
-            outList.AddRange(_DxDataArr.ToList());
-
-            return outList.ToArray();
-        }
-
-        /// <summary>
-        /// Tính toán chuối gửi để nhận numberOfData Dx từ PLC
-        /// </summary>
-        /// <param name="Dx_Num"></param>
-        /// <param name="num_NumberOfData"></param>
-        /// <returns></returns>
-        public static byte[] Cal_ReadFromPLCMessage_Dx_Number_1E_Frame(int Dx_Num, int num_NumberOfData)
-        {
-            // Chuỗi bắt đầu
-            byte[] _header = { 0x01, 0xFF, 0x0A, 0x00 };
-            // Chuỗi kết thúc
-            byte[] _terminal = { 0x20, 0x44 };
-            // Chuỗi tên biến
-            byte[] _DxArr = Int2ByteArray(Dx_Num);
-            // Chuỗi số lượng giá trị cần lấy
-            byte[] _DxNumArr = new byte[2];
-            Array.Copy(Int2ByteArray(num_NumberOfData), 0, _DxNumArr, 0, 2);
-            // Trả về
-            List<byte> outList = _header.ToList();
-            outList.AddRange(_DxArr.ToList());
-            outList.AddRange(_terminal.ToList());
-            outList.AddRange(_DxNumArr.ToList());
-            return outList.ToArray();
-        }
-
-        /// <summary>
         /// Chuyển đổi int sang mảng byte - sử dụng để gửi Mc Protocol Message
         /// </summary>
         /// <param name="dx_Num"></param>
@@ -178,10 +113,7 @@ namespace LT_Support
         /// <summary>
         /// Tính toán chuỗi gửi Dx sang PLC	dạng 3E_Frame
         /// </summary>
-        /// <param name="Dx_Num"></param>
-        /// <param name="Dx_Data"></param>
-        /// <returns></returns>
-        public static byte[] Cal_WriteToPLCMessage_Dx_Single_3E_Frame(int Dx_Num, int Dx_Data)
+        public static byte[] Cal_WriteToPLCMessage_Dx_Multi_3E_Frame(int Dx_Num, int[] Dx_Data)
         {
             // Chuỗi kết nối mặc định ( Subheader - 50 00 // Network - 00 // PC No - FF // Destination Module - FF 03 // Station No - 00
             byte[] _connect_Arr = { 0x50, 0x00, 0x00, 0xFF, 0xFF, 0x03, 0x00 };   // Sẽ + Datalength + REQ message
@@ -191,22 +123,30 @@ namespace LT_Support
 
             // Chuỗi bắt đầu
             byte[] _header = { 0x01, 0x14, 0x00, 0x00 };
+
             // Chuỗi tên biến
             byte[] _DxArr = new byte[3];
             Array.Copy(Int2ByteArray(Dx_Num), 0, _DxArr, 0, 3);
+
             // Chuỗi kết thúc : Device code + Number data (2 byte)
-            byte[] _terminal = { 0xA8, 0x01, 0X00 };
+            int numberDataToSend = Dx_Data.Length;
+            List<byte> _listTerminal = new List<byte>();
+            _listTerminal.Add(0xA8);
+            _listTerminal.AddRange(Int2ByteArray(numberDataToSend).Take(2).ToList());
 
             // Chuỗi giá trị biến
-            byte[] _DxDataArr = new byte[2];
-            Array.Copy(Int2ByteArray(Dx_Data), 0, _DxDataArr, 0, 2);
+            List<byte> _listDxDataArr = new List<byte>();
+            foreach (int item in Dx_Data)
+            {
+                _listDxDataArr.AddRange(Int2ByteArray(item).Take(2).ToList());
+            }
 
             // REQ message - List
             List<byte> req_outList = _motitor_Time_Arr.ToList();
             req_outList.AddRange(_header.ToList());
             req_outList.AddRange(_DxArr.ToList());
-            req_outList.AddRange(_terminal.ToList());
-            req_outList.AddRange(_DxDataArr.ToList());
+            req_outList.AddRange(_listTerminal);
+            req_outList.AddRange(_listDxDataArr);
 
             // Tính toán Datalength
             int data_length = req_outList.Count();
@@ -255,6 +195,83 @@ namespace LT_Support
             return_List.AddRange(req_outList);
 
             return return_List.ToArray();
+        }
+
+        //------------------------------------------------------------
+        // Chuyển đổi String sang arr dạng Int để gửi sang PLC
+        //------------------------------------------------------------
+        public static int[] StringToWordArr(string stringIN)
+        {
+            char[] charArrOfStringIN = stringIN.ToCharArray();
+            List<byte> stringByteList = new List<byte>();
+            List<int> stringIntList = new List<int>();
+            //------------------------------------------------------------
+            // Chuyển đổi String => Byte[]
+            //------------------------------------------------------------
+            foreach (char item in charArrOfStringIN)
+            {
+                stringByteList.Add(Convert.ToByte(item));
+            }
+            //------------------------------------------------------------
+            // Chuyển đổi Byte[] => Int[]
+            //------------------------------------------------------------
+            if (stringByteList.Count % 2 == 1)
+            {
+                stringByteList.Add(0);
+            }
+            int numberWordConvert = stringByteList.Count / 2;
+            byte[] stringByteArr = stringByteList.ToArray();
+
+            for (int i = 0; i < numberWordConvert; i++)
+            {
+                stringIntList.Add((int)BitConverter.ToUInt16(stringByteArr, i * 2));
+            }
+            return stringIntList.ToArray();
+        }
+
+        //------------------------------------------------------------
+        // Lấy giá trị Double Word từ 1 vị trí trong mảng Word
+        //------------------------------------------------------------
+        public static int GetDWordFromWordArr(int[] dataIN, int index)
+        {
+            if ((dataIN.Length - index) < 2) return -1;
+            List<byte> dwordListByte = new List<byte>();
+            dwordListByte.AddRange(Int2ByteArray(dataIN[index]).Take(2));
+            dwordListByte.AddRange(Int2ByteArray(dataIN[index + 1]).Take(2).ToList());
+            int outputDWord = BitConverter.ToInt32(dwordListByte.ToArray(), 0);
+            return outputDWord;
+        }
+
+        //------------------------------------------------------------
+        // Lấy giá trị String từ WordArr + Index + Length
+        //------------------------------------------------------------
+        public static string GetStringFromWordArr(int[] dataIN, int index, int lenght)
+        {
+            if ((dataIN.Length - index - lenght) < 2) return null;
+            List<byte> stringListByte = new List<byte>();
+            for (int i = index; i < index + lenght; i++)
+            {
+
+            stringListByte.AddRange(Int2ByteArray(dataIN[i]).Take(2));
+            }
+            string outputString = "";
+            foreach (var item in stringListByte)
+            {
+                outputString += (char)item;
+            }
+            return outputString;
+        }
+
+        //------------------------------------------------------------
+        // Chuyển DWord sang Word[2]
+        //------------------------------------------------------------
+        public static int[] DWordToWordArray(int dWordIN)
+        {
+            byte[] dWordByteArr = Int2ByteArray(dWordIN);
+            int[] outWordArr = new int[2];
+            outWordArr[0] = BitConverter.ToInt16(dWordByteArr, 0);
+            outWordArr[1] = BitConverter.ToInt16(dWordByteArr, 2);
+            return outWordArr;
         }
     }
 }
