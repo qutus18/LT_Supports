@@ -122,7 +122,7 @@ namespace LT_Support
             {
                 PLCSocket.Client.Shutdown(SocketShutdown.Both);
                 PLCSocket.Close();
-                PLCSocket.Dispose();
+                //PLCSocket.Dispose();
             }
             //------------------------------------------------------------
             // Kết nối đến socket
@@ -389,7 +389,7 @@ namespace LT_Support
                     {
                         PLCSocket.Client.Shutdown(SocketShutdown.Both);
                         PLCSocket.Close();
-                        PLCSocket.Dispose();
+                        //PLCSocket.Dispose();
                     }
                     //------------------------------------------------------------
                     // Kết nối đến socket

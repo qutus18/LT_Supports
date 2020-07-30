@@ -38,27 +38,27 @@
                 //------------------------------------------------------------
                 // Lưu giá trị master theo tool, object tương ứng
                 //------------------------------------------------------------
-                switch (toolNum + objectNum * 0.1)
-                {
-                    case (1.1):
-                        PBase11 = masterPBase;
-                        Master11 = masterRBPoint;
-                        break;
-                    case (1.2):
-                        PBase12 = masterPBase;
-                        Master12 = masterRBPoint;
-                        break;
-                    case (2.1):
-                        PBase21 = masterPBase;
-                        Master21 = masterRBPoint;
-                        break;
-                    case (2.2):
-                        PBase22 = masterPBase;
-                        Master22 = masterRBPoint;
-                        break;
-                    default:
-                        break;
-                }
+                //switch (toolNum + objectNum * 0.1)
+                //{
+                //    case (1.1):
+                //        PBase11 = masterPBase;
+                //        Master11 = masterRBPoint;
+                //        break;
+                //    case (1.2):
+                //        PBase12 = masterPBase;
+                //        Master12 = masterRBPoint;
+                //        break;
+                //    case (2.1):
+                //        PBase21 = masterPBase;
+                //        Master21 = masterRBPoint;
+                //        break;
+                //    case (2.2):
+                //        PBase22 = masterPBase;
+                //        Master22 = masterRBPoint;
+                //        break;
+                //    default:
+                //        break;
+                //}
             }
             catch
             {
@@ -83,27 +83,28 @@
                 //------------------------------------------------------------
                 // lấy giá trị master theo tool, object tương ứng
                 //------------------------------------------------------------
-                switch (toolNum + objectNum * 0.1)
-                {
-                    case (1.1):
-                        masterPBase = PBase11;
-                        masterRBPoint = Master11;
-                        break;
-                    case (1.2):
-                        masterPBase = PBase12;
-                        masterRBPoint = Master12;
-                        break;
-                    case (2.1):
-                        masterPBase = PBase21;
-                        masterRBPoint = Master21;
-                        break;
-                    case (2.2):
-                        masterPBase = PBase22;
-                        masterRBPoint = Master22;
-                        break;
-                    default:
-                        break;
-                }
+                //double condition = toolNum + objectNum * 0.1;
+                //switch (condition)
+                //{
+                //    case (1.1):
+                //        masterPBase = PBase11;
+                //        masterRBPoint = Master11;
+                //        break;
+                //    case (1.2):
+                //        masterPBase = PBase12;
+                //        masterRBPoint = Master12;
+                //        break;
+                //    case (2.1):
+                //        masterPBase = PBase21;
+                //        masterRBPoint = Master21;
+                //        break;
+                //    case (2.2):
+                //        masterPBase = PBase22;
+                //        masterRBPoint = Master22;
+                //        break;
+                //    default:
+                //        break;
+                //}
                 //------------------------------------------------------------
                 // Tính toán PAlign
                 //------------------------------------------------------------

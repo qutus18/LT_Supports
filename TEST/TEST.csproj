@@ -8,10 +8,11 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>TEST</RootNamespace>
     <AssemblyName>TEST</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,12 +33,45 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bunifu_UI_v1.5.3">
       <HintPath>D:\Setup_LT\Bunifu_UI_v1.5.3.dll</HintPath>
     </Reference>
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.0.35\lib\net461\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v19.1.Core, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Sparkline.v19.1.Core, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v19.1, Version=19.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="halcondotnet, Version=18.11.2.0, Culture=neutral, PublicKeyToken=4973bed59ddbf2b8, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files\MVTec\HALCON-18.11-Steady\bin\dotnet35\halcondotnet.dll</HintPath>
+    </Reference>
+    <Reference Include="hdevenginedotnet, Version=18.11.2.0, Culture=neutral, PublicKeyToken=4973bed59ddbf2b8, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files\MVTec\HALCON-18.11-Steady\bin\dotnet35\hdevenginedotnet.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
@@ -53,7 +87,9 @@
     <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
     </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
@@ -76,6 +112,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CameraTriggerAndLiveviewDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CameraTriggerAndLiveviewDemo.Designer.cs">
+      <DependentUpon>CameraTriggerAndLiveviewDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DemoPanasonic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DemoPanasonic.Designer.cs">
+      <DependentUpon>DemoPanasonic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FindToolByName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindToolByName.Designer.cs">
+      <DependentUpon>FindToolByName.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginDBDemo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +142,7 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mul_MultiThread_Test\source\Mul_MultiThread_Test.cs" />
     <Compile Include="NumberConvertTEST.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +151,22 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TaskLearnDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TaskLearnDemo.Designer.cs">
+      <DependentUpon>TaskLearnDemo.cs</DependentUpon>
+    </Compile>
+    <Content Include="Mul_MultiThread_Test\CMakeLists.txt" />
+    <EmbeddedResource Include="CameraTriggerAndLiveviewDemo.resx">
+      <DependentUpon>CameraTriggerAndLiveviewDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DemoPanasonic.resx">
+      <DependentUpon>DemoPanasonic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindToolByName.resx">
+      <DependentUpon>FindToolByName.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginDBDemo.resx">
       <DependentUpon>LoginDBDemo.cs</DependentUpon>
     </EmbeddedResource>
@@ -113,11 +184,18 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Content Include="DemoDB.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="TaskLearnDemo.resx">
+      <DependentUpon>TaskLearnDemo.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Mul_MultiThread_Test\res_Mul_MultiThread_Test\TEST.hdev">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

@@ -16,7 +16,7 @@ namespace TEST
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new NumberConvertTEST());
+            Application.Run(new FindToolByName());
         }
     }
 }
